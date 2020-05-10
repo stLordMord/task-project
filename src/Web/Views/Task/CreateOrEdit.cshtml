@@ -1,0 +1,76 @@
+﻿@model Web.Models.TaskModel
+@{
+    ViewData["Title"] = "Задача";
+}
+@ViewBag.Url
+<h4>Задача</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <label asp-for="Id" class="control-label"></label>
+            <input asp-for="Id" readonly class="form-control" />
+            <div class="form-group">
+                <label asp-for="ProjectId" class="control-label"></label>
+                <select asp-for="ProjectId" class="form-control">
+                    <option value="0" hidden>---Выберите---</option>
+                    @foreach (var project in ViewData["projects"] as IList<ProjectModel>)
+                    {
+                        <option value="@project.ProjectId">@project.ShortName</option>
+                    }
+                </select>
+                <span asp-validation-for="ProjectId"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Timing" class="control-label"></label>
+                <input asp-for="Timing" class="form-control" />
+                <span asp-validation-for="Timing"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DateStart" class="control-label"></label>
+                <input asp-for="DateStart" class="form-control" />
+                <span asp-validation-for="DateStart"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DateEnd" class="control-label"></label>
+                <input asp-for="DateEnd" class="form-control" />
+                <span asp-validation-for="DateEnd"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="StatusId" class="control-label"></label>
+                <select asp-for="StatusId" class="form-control">
+                    <option value="0" hidden>---Выберите---</option>
+                    @foreach (var status in ViewData["statuses"] as IList<StatusModel>)
+                    {
+                        <option value="@status.Id">@status.Name</option>
+                    }
+                </select>
+                <span asp-validation-for="StatusId"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EmployeeId" class="control-label"></label>
+                <select asp-for="EmployeeId" class="form-control">
+                    <option value="0" hidden>---Выберите---</option>
+                    @foreach (var employee in ViewData["employees"] as IList<EmployeeModel>)
+                    {
+                        <option value="@employee.Id">@employee.Name @employee.Surname @employee.Patronymic</option>
+                    }
+                </select>
+                <span asp-validation-for="EmployeeId"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Сохранить" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+<div>
+    <a asp-action="Index">Список задач</a>
+</div>
+

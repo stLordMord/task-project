@@ -1,0 +1,92 @@
+﻿@model Web.Models.ProjectModel
+@{
+    ViewData["Title"] = "Проект";
+}
+
+<h4>Проект</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="ProjectId" class="control-label"></label>
+                <input asp-for="ProjectId" readonly class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="FullName" class="control-label"></label>
+                <input asp-for="FullName" class="form-control" />
+                <span asp-validation-for="FullName"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ShortName" class="control-label"></label>
+                <input asp-for="ShortName" class="form-control" />
+                <span asp-validation-for="ShortName"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Сохранить" class="btn btn-default" />
+            </div>
+            <hr />
+            <h4>Задачи</h4>
+            <div class="form-group">
+                <p>
+                    <input type="submit" value="Создать задачу" asp-action="Task" class="btn btn-default" />
+                </p>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>@Html.DisplayNameFor(model => Model.Tasks[0].Id)</th>
+                            <th>@Html.DisplayNameFor(model => Model.Tasks[0].Name)</th>
+                            <th>@Html.DisplayNameFor(model => Model.Tasks[0].Timing)</th>
+                            <th>@Html.DisplayNameFor(model => Model.Tasks[0].DateStart)</th>
+                            <th>@Html.DisplayNameFor(model => Model.Tasks[0].DateEnd) </th>
+                            <th>@Html.DisplayNameFor(model => Model.Tasks[0].StatusName)</th>
+                            <th>@Html.DisplayNameFor(model => Model.Tasks[0].EmployeeName)</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (int i = 0; i < Model.Tasks.Count; i++)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(model => Model.Tasks[i].Id)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(model => Model.Tasks[i].Name)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(model => Model.Tasks[i].Timing)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(model => Model.Tasks[i].DateStart)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(model => Model.Tasks[i].DateEnd)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(model => Model.Tasks[i].StatusName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(model => Model.Tasks[i].EmployeeName)
+                            </td>
+                            <td>
+                                <a asp-controller="Task" asp-action="Edit" asp-route-id="@Model.Tasks[i].Id">Редактировать</a>
+                                <a asp-controller="Task" asp-action="Delete" asp-route-id="@Model.Tasks[i].Id">Удалить</a>
+                            </td>
+                        </tr>
+                    }
+                    </tbody>
+                </table>
+            </div>
+        </form>
+    </div>
+</div>
+<div>
+    <a asp-action="Index">Список проектов</a>
+</div>

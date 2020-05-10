@@ -1,0 +1,73 @@
+﻿@model Web.ViewModel.EmployeeViewModel
+@using Web.Models
+@addTagHelper *, Web
+
+@{
+    ViewData["Title"] = "Список";
+}
+
+
+<h2>Сотрудники</h2>
+<a asp-action="Export">Экспортировать в Excel</a>
+<hr />
+<p>
+    <a asp-action="Create">Создать</a>
+</p>
+<form method="get">
+    <div class="form-inline">
+        <label>Фамилия: </label>
+        <input name="searchText" value="@Model.FilterViewModel.SearchText" class="form-control" />
+        <input type="submit" value="Поиск" class="btn btn-outline-dark" />
+    </div>
+</form>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Employees[0].Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Employees[0].Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Employees[0].Surname)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Employees[0].Patronymic)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Employees[0].PositionName)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Employees)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Surname)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Patronymic)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PositionName)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Редактировать</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Удалить</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<page-link page-model="Model.PageViewModel" page-action="Index"
+           page-url-searchText="@(Model.FilterViewModel.SearchText)"></page-link>

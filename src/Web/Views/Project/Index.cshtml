@@ -1,0 +1,65 @@
+﻿@model Web.ViewModel.ProjectViewModel
+@addTagHelper *, Web
+
+@{
+    ViewData["Title"] = "Список";
+}
+
+<h2>Проекты</h2>
+<a asp-action="Export">Экспортировать в Excel</a>
+<hr />
+<p>
+    <a asp-action="Create">Создать</a>
+</p>
+<form method="get">
+    <div class="form-inline">
+        <label>Сокращенное название: </label>
+        <input name="searchText" value="@Model.FilterViewModel.SearchText" class="form-control" />
+        <input type="submit" value="Поиск" class="btn btn-outline-dark" />
+    </div>
+</form>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Projects[0].ProjectId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Projects[0].FullName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Projects[0].ShortName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Projects[0].Description)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Projects)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProjectId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FullName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ShortName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.ProjectId">Редактировать</a> |
+                    <a asp-action="Delete" asp-route-id="@item.ProjectId">Удалить</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<page-link page-model="Model.PageViewModel" page-action="Index"
+           page-url-searchText="@(Model.FilterViewModel.SearchText)"></page-link>

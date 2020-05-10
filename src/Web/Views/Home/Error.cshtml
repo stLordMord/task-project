@@ -1,0 +1,30 @@
+﻿
+@{
+    ViewData["Title"] = "Error";
+}
+
+    <h3>
+        Произошла ошибка во время обработки вашего запроса. 
+        Команда поддержки уведомлена и работает над исправлением.
+    </h3>
+<h5>Пожалуйста, свяжитесь с нами</h5>
+<hr />
+<h3>Информация об ошибке</h3>
+<div class="alert alert-danger">
+    <h5>Место ошибки</h5>
+    <hr />
+    <p>@ViewBag.ExceptionPath</p>
+</div>
+
+<div class="alert alert-danger">
+    <h5>Сообщение</h5>
+    <hr />
+    <p>@ViewBag.ExceptionMessage</p>
+</div>
+
+<div class="alert alert-danger">
+    <h5>Stack Trace</h5>
+    <hr />
+    <p>@ViewBag.StackTrace</p>
+</div>
+
